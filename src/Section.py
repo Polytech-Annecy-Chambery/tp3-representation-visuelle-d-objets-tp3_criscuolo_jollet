@@ -5,6 +5,7 @@ Created on Thu Nov 16 19:47:50 2017
 @author: lfoul
 """
 import OpenGL.GL as gl
+position=[0,0,0]
 
 class Section:
     # Constructor
@@ -52,12 +53,19 @@ class Section:
 
     # Defines the vertices and faces 
     def generate(self):
-        self.vertices = [ 
+        self.vertices = [position,\
+                         [0,0,position[2]+self.parameters['height']],\
+                         [position[0]+self.parameters["width"],0,0],\
+                         [position[0],position[1]+self.parameters["thickness"],0],\
+                         [0,position[1]+self.parameters["thickness"],position[2]+self.parameters["height"]],\
+                         [position[0]+self.parameters["width"],position[1],position[2]+self.parameters["height"]],\
+                         [position[0]+self.parameters["width"],position[1]+self.parameters["thickness"],0],\
+                         [position[0]+self.parameters["width"],position[1]+self.parameters["thickness"],position[2]+self.parameters["height"] ]]
                 # Définir ici les sommets
-                ]
-        self.faces = [
+       
+        #self.faces = [
                 # définir ici les faces
-                ]   
+                #]   
 
     # Checks if the opening can be created for the object x
     def canCreateOpening(self, x):
