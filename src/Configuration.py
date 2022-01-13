@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Nov 16 19:47:50 2017
-
-@author: lfoul
-"""
 import pygame
 import OpenGL.GL as gl
 import OpenGL.GLU as glu
@@ -155,17 +149,18 @@ class Configuration:
     
     # Processes the MOUSEBUTTONDOWN event
     def processMouseButtonDownEvent(self):
-        pass
-        #if self.event.key == pygame.K_PAGEUP:
-            #gl.glScalef(1.1,1.1,1.1)
-        #elif self.event.key == pygame.K_PAGEDOWN:
-            #gl.glScalef(1/1.1,1/1.1,1/1.1)
-    
+      
+        
+        if self.event.button == 5: #la molette descend
+             gl.glScalef(1/1.1,1/1.1,1/1.1)
+         
+        elif self.event.button == 4: #la molette descend
+             gl.glScalef(1.1,1.1,1.1)
        
     
     # Processes the MOUSEMOTION event
     def processMouseMotionEvent(self):
-
+        
         if pygame.mouse.get_pressed()[0]==1:
             gl.glRotate(self.event.rel[1],1,0,0)
             gl.glRotate(self.event.rel[0],0,0,1)

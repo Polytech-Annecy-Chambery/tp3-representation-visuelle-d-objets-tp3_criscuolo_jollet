@@ -46,14 +46,39 @@ class Opening:
 
     # Defines the vertices and faces        
     def generate(self):
-        self.vertices = [ 
+      self.vertices = [ 
+                [0, 0, 0 ], 
+                [0, 0, self.parameters['height']], 
+                [self.parameters['width'], 0, self.parameters['height']],
+                [self.parameters['width'], 0, 0], 
+                [0,self.parameters['thickness'],0],
+                [0,self.parameters['thickness'],self.parameters['height']],
+                [self.parameters['width'],self.parameters['thickness'],0],
+                [self.parameters['width'],self.parameters['thickness'],self.parameters['height']]   
                 # Définir ici les sommets
                 ]
-        self.faces = [
-                # définir ici les faces
-                ]   
+      self.faces = [
+                [0, 3, 2, 1],[2,3,6,7],[6,7,5,4],[0,4,5,1],[1,2,7,5], [0,3,6,4]] 
         
     # Draws the faces                
-    def draw(self):        
-        # A compléter en remplaçant pass par votre code
-        pass
+    def draw(self):
+      gl.glPushMatrix()
+      gl.glTranslatef(self.parameters['position'][0],self.parameters['position'][1],self.parameters['position'][2])
+      gl.glPolygonMode(gl.GL_FRONT_AND_BACK, gl.GL_FILL) # on trace les faces : GL_FILL
+      gl.glBegin(gl.GL_QUADS) # Tracé d’un quadrilatère
+      gl.glColor3fv([self.parameters['color'][0]*0.6,self.parameters['color'][1]*0.6,self.parameters['color'][2]*0.6])
+      for face in self.faces:
+        for vertex in face:
+          gl.glVertex3fv(self.vertices[vertex])
+      gl.glEnd()
+
+      gl.glPolygonMode(gl.GL_FRONT_AND_BACK, gl.GL_LINE) # on trace les faces : GL_FILL
+      gl.glBegin(gl.GL_QUADS) # Tracé d’un quadrilatère
+      gl.glColor3fv([self.parameters['color'][0]*0.1,self.parameters['color'][1]*0.1,self.parameters['color'][2]*0.1])
+      for face in self.faces:
+        for vertex in face:
+          gl.glVertex3fv(self.vertices[vertex])
+      gl.glEnd()
+      
+      gl.glPopMatrix()   
+      
